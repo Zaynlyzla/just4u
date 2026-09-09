@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Say love 4u</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#fce4ec,#f8bbd0,#fdf2f6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.box{
+  width:340px;
+  background:rgba(255,255,255,0.7);
+  backdrop-filter:blur(15px);
+  padding:25px;
+  border-radius:25px;
+  text-align:center;
+  box-shadow:0 10px 40px rgba(0,0,0,0.1);
+  animation:fade 1s ease;
+}
+
+/* FONT */
+.music-title{
+  font-family:'Great Vibes',cursive;
+  font-size:24px;
+  color:#c48a9a;
+}
+
+.title-thin{
+  font-family:'Great Vibes',cursive;
+  color:#c48a9a;
+  font-weight:300;
+  letter-spacing:1px;
+  opacity:0.85;
+}
+
+.soft-emoji{
+  font-size:0.8em;
+  opacity:0.6;
+}
+
+/* TITLE BOX */
+.title-box{
+  display:inline-block;
+  background:linear-gradient(145deg,#ff9fb5,#ff7fa5);
+  padding:6px 18px;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(255,105,135,0.3);
+  margin-bottom:10px;
+}
+
+/* IMAGE FIX */
+img{
+  width:130px;
+  margin-bottom:10px;
+  animation:bounce 2s infinite;
+  mix-blend-mode:multiply;
+  filter:brightness(1.08) contrast(1.05) saturate(1.05);
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(255,182,193,0.3);
+}
+
+/* BUTTON */
+button{
+  margin-top:10px;
+  padding:10px 25px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(145deg,#ff7fa5,#ff9fb5);
+  color:white;
+  font-size:14px;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(255,105,135,0.4);
+  transition:0.2s;
+}
+
+button:active{
+  transform:scale(0.9);
+  box-shadow:inset 0 3px 8px rgba(0,0,0,0.2);
+}
+
+button, .key, .nav {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+button:focus, .key:focus {
+  outline: none;
+}
+
+/* KEYPAD */
+.keypad{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:10px;
+}
+
+.key{
+  padding:15px;
+  border-radius:15px;
+  background:#fff;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.key:active{
+  transform:scale(0.9);
+  box-shadow:inset 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.pin{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin:10px 0;
+}
+
+.dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  border:2px solid #d48fa1;
+}
+
+.dot.filled{
+  background:#d48fa1;
+}
+
+/* WRONG PASSWORD */
+.wrong-text{
+  color:#ff4d6d;
+  font-size:13px;
+  margin-top:8px;
+  opacity:0;
+  transform:translateY(-5px);
+  transition:0.3s;
+}
+
+.wrong-text.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ANIMASI */
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1;}
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
+
+.shake{
+  animation:shake 0.3s infinite;
+}
+
+@keyframes shake{
+  0%{transform:translateX(0);}
+  25%{transform:translateX(-5px);}
+  50%{transform:translateX(5px);}
+  75%{transform:translateX(-5px);}
+  100%{transform:translateX(0);}
+}
+
+.hidden{display:none;}
+
+.clue{
+  font-size:12px;
+  margin-top:10px;
+  color:#888;
+}
+
+.yes{background:linear-gradient(145deg,#ff7fa5,#ffb6c1);}
+.no{background:linear-gradient(145deg,#ccc,#aaa);}
+
+/* SURAT */
+.slideUp{
+  animation:slideUp 0.8s ease;
+}
+
+@keyframes slideUp{
+  from{opacity:0; transform:translateY(50px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.answer-box{
+  margin-top:20px;
+  animation:fade 0.8s ease;
+}
+
+.answer-question{
+  font-family:'Great Vibes',cursive;
+  color:#c48a9a;
+  font-size:24px;
+  margin:15px 0;
+}
+
+.answer-buttons{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+}
+
+.answer-buttons button{
+  margin-top:5px;
+}
+
+.answer-yes{
+  background:linear-gradient(145deg,#ff7fa5,#ffb6c1);
+}
+
+.answer-no{
+  background:linear-gradient(145deg,#ccc,#aaa);
+}
+
+.selected-answer{
+  color:#c48a9a;
+  font-size:12px;
+  min-height:18px;
+  margin:10px 0;
+}
+
+.message-input{
+  width:100%;
+  height:95px;
+  box-sizing:border-box;
+  border:none;
+  outline:none;
+  resize:none;
+  border-radius:15px;
+  padding:12px;
+  font-family:'Poppins',sans-serif;
+  font-size:12px;
+  background:rgba(255,255,255,0.8);
+  color:#777;
+  box-shadow:inset 0 2px 7px rgba(0,0,0,0.06);
+  margin-top:5px;
+}
+
+.message-input::placeholder{
+  color:#b99aa6;
+}
+
+.send-button{
+  margin-top:12px;
+}
+
+.send-status{
+  font-size:11px;
+  color:#c48a9a;
+  min-height:17px;
+  margin-top:8px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="Paper Rings.mp3"></audio>
+
+<div class="box">
+
+<!-- MUSIC -->
+<div id="musicPage">
+<img src="https://i.ibb.co.com/M5V8wc5r/image.png">
+<div class="music-title">Paper Rings–Taylor Swift</div>
+
+<button onclick="toggleMusic()" id="playBtn">Play</button>
+<button onclick="skipMusic()">Skip</button>
+</div>
+
+<!-- INVITE -->
+<div id="invite" class="hidden">
+<img src="https://i.ibb.co.com/mVQBNcB0/img1.jpg">
+<h1 class="title-thin">
+You're Invited <span class="soft-emoji">⋆˚𝜗𝜚˚⋆</span>
+</h1>
+<button onclick="start()">open</button>
+</div>
+
+<!-- PIN -->
+<div id="pinPage" class="hidden">
+<img id="pinImg" src="https://i.ibb.co.com/mVQBNcB0/img1.jpg">
+<p>Ayo tebak passwordnya!</p>
+
+<div class="pin">
+<div class="dot" id="d1"></div>
+<div class="dot" id="d2"></div>
+<div class="dot" id="d3"></div>
+<div class="dot" id="d4"></div>
+<div class="dot" id="d5"></div>
+</div>
+
+<div class="keypad">
+<div class="key" onclick="add(1)">1</div>
+<div class="key" onclick="add(2)">2</div>
+<div class="key" onclick="add(3)">3</div>
+<div class="key" onclick="add(4)">4</div>
+<div class="key" onclick="add(5)">5</div>
+<div class="key" onclick="add(6)">6</div>
+<div class="key" onclick="add(7)">7</div>
+<div class="key" onclick="add(8)">8</div>
+<div class="key" onclick="add(9)">9</div>
+<div></div>
+<div class="key" onclick="add(0)">0</div>
+<div class="key" onclick="hapus()">⌫</div>
+</div>
+
+<button onclick="cek()">enter</button>
+
+<div id="wrongText" class="wrong-text">
+Wrong password!!
+</div>
+
+<div class="clue">
+clue: mulai dari 1-5
+</div>
+
+</div>
+
+<!-- PILIHAN -->
+<div id="pilihan" class="hidden">
+
+<img id="pilihImg" src="https://i.ibb.co.com/mVQBNcB0/img1.jpg">
+
+<p>
+Apakah kamu ingin membuka pesan ini?
+</p>
+
+<button class="yes" onclick="yes()">
+yes
+</button>
+
+<button class="no" onclick="no()">
+no
+</button>
+
+</div>
+
+<!-- SURAT -->
+<div id="surat" class="hidden">
+
+<img src="https://i.ibb.co.com/JjGtxcXr/img2.jpg">
+
+<h2 class="title-thin">
+Message for you
+<span class="soft-emoji">⋆. 𐙚 ˚</span>
+</h2>
+
+</div>
+
+<p id="text"></p>
+
+
+<!-- ANSWER -->
+<div id="answerBox" class="answer-box hidden">
+
+  <div class="answer-question">
+    Do you want to get to know me? ♡
+  </div>
+
+  <div class="answer-buttons">
+
+    <button
+      class="answer-yes"
+      onclick="selectAnswer('YES')">
+      yes
+    </button>
+
+    <button
+      class="answer-no"
+      onclick="selectAnswer('NO')">
+      no
+    </button>
+
+  </div>
+
+  <div
+    id="selectedAnswer"
+    class="selected-answer">
+    choose one (1× klik ya) ♡
+  </div>
+
+  <textarea
+    id="messageInput"
+    class="message-input"
+    placeholder="say anything you want to tell me..">
+  </textarea>
+
+  <button
+    class="send-button"
+    onclick="sendAnswer()">
+    send 💌
+  </button>
+
+  <div
+    id="sendStatus"
+    class="send-status">
+  </div>
+
+</div>
+
+
+</div>
+
+<script>
+
+let input="";
+let isPlaying=false;
+
+const FORM_ENDPOINT =
+"https://formspree.io/f/mwlkwjbn";
+
+let selectedAnswer="";
+
+
+function selectAnswer(answer){
+
+  selectedAnswer=answer;
+
+  document.getElementById("selectedAnswer")
+    .innerText="Your answer: "+answer;
+
+}
+
+
+async function sendAnswer(){
+
+  let message=
+    document.getElementById("messageInput")
+    .value
+    .trim();
+
+  let status=
+    document.getElementById("sendStatus");
+
+
+  if(selectedAnswer===""){
+
+    status.innerText=
+      "Pilih yes atau no dulu ya ♡";
+
+    return;
+
+  }
+
+
+  if(message===""){
+
+    status.innerText=
+      "say everything you want to tell me first.. ♡";
+
+    document.getElementById("messageInput").focus();
+
+    return;
+
+  }
+
+
+  status.innerText=
+    "sending... 💌";
+
+
+  let formData=new FormData();
+
+
+  formData.append(
+    "answer",
+    selectedAnswer
+  );
+
+
+  formData.append(
+    "message",
+    message
+  );
+
+
+  formData.append(
+    "time",
+    new Date().toLocaleString("id-ID")
+  );
+
+
+  try{
+
+    let response=
+      await fetch(
+        FORM_ENDPOINT,
+        {
+          method:"POST",
+          body:formData,
+          headers:{
+            "Accept":"application/json"
+          }
+        }
+      );
+
+
+    if(response.ok){
+
+      status.innerText=
+        "Terkirim ke aku 💗";
+
+      document.getElementById(
+        "messageInput"
+      ).disabled=true;
+
+    }else{
+
+      status.innerText=
+        "Gagal mengirim, coba lagi ya 🤍";
+
+    }
+
+  }catch(error){
+
+    console.log(error);
+
+    status.innerText=
+      "Gagal mengirim, coba lagi ya 🤍";
+
+  }
+
+}
+
+
+function toggleMusic(){
+
+let music=
+document.getElementById("music");
+
+let btn=
+document.getElementById("playBtn");
+
+
+if(!isPlaying){
+
+music.play();
+
+btn.innerText="Pause";
+
+isPlaying=true;
+
+}else{
+
+music.pause();
+
+btn.innerText="Play";
+
+isPlaying=false;
+
+}
+
+}
+
+
+function skipMusic(){
+
+document.getElementById("musicPage")
+.classList.add("hidden");
+
+document.getElementById("invite")
+.classList.remove("hidden");
+
+}
+
+
+function start(){
+
+document.getElementById("invite")
+.classList.add("hidden");
+
+document.getElementById("pinPage")
+.classList.remove("hidden");
+
+}
+
+
+function add(num){
+
+if(input.length<5){
+
+input+=num;
+
+update();
+
+}
+
+}
+
+
+function hapus(){
+
+input=input.slice(0,-1);
+
+update();
+
+}
+
+
+function update(){
+
+for(let i=1;i<=5;i++){
+
+document.getElementById("d"+i)
+.classList.remove("filled");
+
+}
+
+for(let i=0;i<input.length;i++){
+
+document.getElementById("d"+(i+1))
+.classList.add("filled");
+
+}
+
+}
+
+
+function cek(){
+
+let wrong=
+document.getElementById("wrongText");
+
+
+if(input==="12345"){
+
+document.getElementById("pinPage")
+.classList.add("hidden");
+
+document.getElementById("pilihan")
+.classList.remove("hidden");
+
+wrong.classList.remove("show");
+
+}else{
+
+let img=
+document.getElementById("pinImg");
+
+img.src=
+"https://i.ibb.co.com/N6LmwWQW/img3.jpg";
+
+img.classList.add("shake");
+
+wrong.classList.add("show");
+
+
+setTimeout(()=>{
+
+img.classList.remove("shake");
+
+wrong.classList.remove("show");
+
+},1000);
+
+
+input="";
+
+update();
+
+}
+
+}
+
+
+function yes(){
+
+document.getElementById("pilihan")
+.classList.add("hidden");
+
+let surat=
+document.getElementById("surat");
+
+surat.classList.remove("hidden");
+
+surat.classList.add("slideUp");
+
+ketik();
+
+}
+
+
+function no(){
+
+let img=
+document.getElementById("pilihImg");
+
+img.src=
+"https://i.ibb.co.com/N6LmwWQW/img3.jpg";
+
+img.classList.add("shake");
+
+
+setTimeout(()=>{
+
+img.classList.remove("shake");
+
+},800);
+
+}
+
+
+function ketik(){
+
+let teks=`haloo kakaa imupp kesayangankuu ʚଓ,
+sorry to say but... i think i like you ♡
+sebenernya dari awal aku liat kamu, aku udah ngerasa kamu menarik banget.
+terus entah kenapa makin lama aku malah makin suka dan kepikiran teruss sama kamu wkwk.
+jadi dari pada aku kepikiran trs soal hal ini, kamu mau ga kenalan sama aku? 
+✌︎˶╹ꇴ╹˶✌︎ ♡`;
+
+let i=0;
+
+let el=
+document.getElementById("text");
+
+el.innerHTML="";
+
+
+function ngetik(){
+
+if(i<teks.length){
+
+el.innerHTML+=
+teks.charAt(i);
+
+i++;
+
+setTimeout(
+ngetik,
+35
+);
+
+}else{
+
+
+setTimeout(()=>{
+
+document.getElementById("answerBox")
+.classList.remove("hidden");
+
+},500);
+
+}
+
+}
+
+ngetik();
+
+}
+
+</script>
+
+</body>
+</html>
